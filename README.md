@@ -1,5 +1,5 @@
 # AltBotV2 Updater
-AltBotV2's Updater, was uploaded by the owner Kyron in the AltBotV2 discord server.
+AltBotV2's Updater, dumped with dnSpy it has no obfuscation if you wanna use dnSpy to look at the code yourself.
 
 # Link's
 Visit and install AltBotV2: https://altbot.xyz/
