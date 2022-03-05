@@ -7,78 +7,83 @@ using System.Threading;
 
 namespace ABV2_Updater
 {
-	// Token: 0x02000002 RID: 2
+	// Token: 0x02000003 RID: 3
 	internal class Program
 	{
-		// Token: 0x06000001 RID: 1 RVA: 0x00002050 File Offset: 0x00000250
+		// Token: 0x06000007 RID: 7 RVA: 0x00002126 File Offset: 0x00000326
 		public static void Start()
 		{
-			Console.Title = "AltBotV2 Updater";
-			Console.ForegroundColor = ConsoleColor.Magenta;
-			Console.WriteLine("\r\n   _____  .__   __ __________        __ ____   ____________  \r\n  /  _  \\ |  |_/  |\\______   \\ _____/  |\\   \\ /   /\\_____  \\ \r\n /  /_\\  \\|  |\\   __\\    |  _//  _ \\   __\\   Y   /  /  ____/ \r\n/    |    \\  |_|  | |    |   (  <_> )  |  \\     /  /       \\ \r\n\\____|__  /____/__| |______  /\\____/|__|   \\___/   \\_______ \\\r\n        \\/                 \\/                              \\/\r\n");
-			if (File.Exists("altbot.exe"))
-			{
-				File.Delete("altbot.exe");
-			}
-			if (Directory.Exists("altbot"))
-			{
-				Directory.Delete("altbot");
-			}
-			if (Directory.Exists("altbot.zip"))
-			{
-				Directory.Delete("altbot.zip");
-			}
+			Console.Title = "ABV2 Updater";
+			Console.ForegroundColor = ConsoleColor.Cyan;
+			Console.WriteLine("█████╗ ██████╗ ██╗   ██╗██████╗\n██╔══██╗██╔══██╗██║   ██║╚════██╗\n███████║██████╔╝██║   ██║ █████╔╝\n██╔══██║██╔══██╗╚██╗ ██╔╝██╔═══╝\n██║  ██║██████╔╝ ╚████╔╝ ███████╗\n╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚══════╝");
+			Console.ResetColor();
+			Process.Start("https://discord.com/invite/EeUWcPsQC6");
 		}
 
-		// Token: 0x06000002 RID: 2 RVA: 0x000020BA File Offset: 0x000002BA
+		// Token: 0x06000008 RID: 8 RVA: 0x00002154 File Offset: 0x00000354
 		public static void Download()
 		{
 			WebClient webClient = new WebClient();
-			Console.ForegroundColor = ConsoleColor.Blue;
-			Console.WriteLine("[INFO] Starting download");
-			webClient.DownloadFile("https://www.novaline.xyz/cdn/altbot.zip", "Altbot.zip");
-			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine("[SUCCESS] Files downloaded");
+			if (!webClient.DownloadString("https://pastebin.com/raw/jX0RemHF").Contains("1.0"))
+			{
+				Functions.WARN("Your version of the bootsrapper is outdated! We recommend you install the most up to date one.");
+				Process.Start("https://altbot.xyz");
+			}
+			Functions.INFO("Starting Download");
+			try
+			{
+				webClient.DownloadFile("https://www.novaline.xyz/cdn/altbot.zip", "Altbot.zip");
+			}
+			catch (Exception)
+			{
+				Functions.ERROR("There was an error when installing the files");
+			}
+			Functions.SUCCESS("Files Downloaded");
 			webClient.Dispose();
 		}
 
-		// Token: 0x06000003 RID: 3 RVA: 0x000020F8 File Offset: 0x000002F8
+		// Token: 0x06000009 RID: 9 RVA: 0x000021DC File Offset: 0x000003DC
 		public static void Extract()
 		{
-			Console.ForegroundColor = ConsoleColor.Blue;
-			Console.WriteLine("[INFO] Extraction starting");
-			ZipFile.ExtractToDirectory("Altbot.zip", "altbot");
-			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine("[SUCCESS] Extraction complete");
+			Functions.INFO("Extraction Starting");
+			try
+			{
+				ZipFile.ExtractToDirectory("Altbot.zip", ".");
+			}
+			catch (Exception)
+			{
+				Functions.ERROR("There was an error when extrating the files");
+			}
+			Functions.SUCCESS("Extraction Complete");
 		}
 
-		// Token: 0x06000004 RID: 4 RVA: 0x0000212C File Offset: 0x0000032C
+		// Token: 0x0600000A RID: 10 RVA: 0x0000222C File Offset: 0x0000042C
 		public static void CleanUp()
 		{
-			Console.ForegroundColor = ConsoleColor.Blue;
-			Console.WriteLine("[INFO] Cleaning up unnecessary files");
-			if (Directory.Exists("Altbot.zip"))
+			Functions.INFO("Cleaning Up");
+			try
 			{
-				Directory.Delete("Altbot.zip");
+				if (File.Exists("./Altbot.zip"))
+				{
+					File.Delete("./Altbot.zip");
+				}
 			}
-			if (Directory.Exists("altbot"))
+			catch (Exception)
 			{
-				Directory.Delete("altbot");
+				Functions.ERROR("There was an error when cleaning up");
 			}
-			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine("[SUCCESS] Clean up complete");
+			Functions.SUCCESS("Clean Up Complete");
 		}
 
-		// Token: 0x06000005 RID: 5 RVA: 0x00002187 File Offset: 0x00000387
+		// Token: 0x0600000B RID: 11 RVA: 0x00002284 File Offset: 0x00000484
 		public static void Complete()
 		{
-			Console.ForegroundColor = ConsoleColor.Blue;
-			Console.WriteLine("[INFO] Installation complete, closing in 3 secs");
+			Functions.INFO("Installation Complete, Closing In 3 Secs");
 			Thread.Sleep(3000);
 			Process.GetCurrentProcess().Kill();
 		}
 
-		// Token: 0x06000006 RID: 6 RVA: 0x000021AE File Offset: 0x000003AE
+		// Token: 0x0600000C RID: 12 RVA: 0x000022A4 File Offset: 0x000004A4
 		private static void Main(string[] args)
 		{
 			Program.Start();

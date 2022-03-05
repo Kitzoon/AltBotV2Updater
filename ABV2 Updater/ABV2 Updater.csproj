@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BE202E9A-AF68-4B25-8D5E-B65116DE613C}</ProjectGuid>
+    <ProjectGuid>{BDC20B30-95A0-4C5D-AF1D-1E126A0A16D4}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>ABV2_Updater</RootNamespace>
     <AssemblyName>ABV2 Updater</AssemblyName>
@@ -40,6 +40,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Functions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
